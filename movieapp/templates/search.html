@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    
+{% endblock title %}
+
+
+
+{% block css %}
+    <style>
+        body{
+            background-color: black !important;
+        }
+    </style>
+{% endblock css %}
+    
+
+
+{% block content %}
+{% include 'partials/_navbar.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+        <h1 class="text-white"> Arama </h1>
+        <div class="cizgi"></div>
+    </div>
+   
+   {% if filmler %}
+    
+  
+    
+    {% for film in filmler %}
+    <div class="col-3">
+        <div class="card bg-transparent">
+            <img class="card-body " src="{{film.image.url}}" alt="">
+            <p class="card-title text-white text-center"> {{film.title}} </p>
+            <a class="btn text-white card-footer" href="{% url 'movie-detay' film.slug %} "> İzle </a>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1> {{ara}} ile ilgili bir sonuç yok, şunlar ilginizi çekebilir ; </h1>
+    {% for film in tumFilmler %}
+    <div class="col-3">
+        <div class="card bg-transparent">
+            <img class="card-body " src="{{film.image.url}}" alt="">
+            <p class="card-title text-white text-center"> {{film.title}} </p>
+            <a class="btn text-white card-footer" href="{% url 'movie-detay' film.slug %} "> İzle </a>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+</div>
+
+
+    
+{% endblock content %}
+    
+    

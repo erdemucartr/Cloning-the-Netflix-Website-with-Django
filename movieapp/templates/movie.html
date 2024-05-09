@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    
+{% endblock title %}
+
+
+
+{% block css %}
+    <style>
+        body{
+            background-color: black !important;
+        }
+    </style>
+{% endblock css %}
+    
+
+
+{% block content %}
+{% include 'partials/_navbar.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 m-2">
+            <h1 class="text-white"> Beğenebilceğiniz Filmler </h1>
+            <div class="cizgi"> </div>
+        </div>
+        
+        {% for film in filmler %}
+        <div class="col-3">
+            <div class="card bg-transparent">
+                <form method="POST" action="{% url 'favori-ekle' %}">
+                    {% csrf_token %}
+                    <input hidden type="text" value="{{film.id}}" name="film_id" >
+                    <input class="bg-transparent text-white border border-0" type="submit" value="&#9733;" style='font-size:40px;'></input>
+                </form>
+               
+
+                <img class="card-body " src="{{film.image.url}}" alt="">
+                <p class="card-title text-white text-center"> {{film.title}} </p>
+                
+                <a class="btn text-white card-footer" href="{% url 'movie-detay' film.slug %} "> İzle </a>
+               
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-12 m-2">
+            <h1 class="text-white"> Komedi Filmleri </h1>
+            <div class="cizgi"> </div>
+        </div>
+
+        {% for film in komediFilm %}
+        <div class="col-3">
+            <div class="card bg-transparent">
+                <input class="bg-transparent text-white border border-0" type="submit" value="&#9733;" style='font-size:40px;'></input>
+                <img class="card-body " src="{{film.image.url}}" alt="">
+                <p class="card-title text-white text-center"> {{film.title}} </p>
+                <a class="btn text-white card-footer" href="{% url 'movie-detay' film.slug %}"> İzle </a>
+            </div>
+        </div>
+        {% endfor %}
+       
+    </div>
+</div>
+
+    
+{% endblock content %}
+    
+    
